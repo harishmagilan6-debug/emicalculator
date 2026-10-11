@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EMI NOVA — Next-generation smart loan EMI calculator and financial analytics. Calculate monthly EMI, explore amortization schedules, simulate extra prepayments, and make smarter borrowing decisions.">
+  <meta name="keywords" content="EMI Calculator, Smart Loan Calculator, Home Loan EMI, Personal Loan EMI, Car Loan EMI, Amortization Schedule, Loan Prepayment Calculator, Financial Analytics">
+  <meta name="author" content="EMI NOVA">
+  <title>EMI NOVA — Smart Loan Calculator | Plan Smart. Borrow Better.</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow elements -->
+  <div class="ambient-glow glow-1" aria-hidden="true"></div>
+  <div class="ambient-glow glow-2" aria-hidden="true"></div>
+  <div class="ambient-glow glow-3" aria-hidden="true"></div>
+  <canvas id="particles-canvas" class="particles-bg" aria-hidden="true"></canvas>
+
+  <!-- Header / Navigation Bar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-logo" aria-label="EMI NOVA Home">
+        <div class="logo-symbol">
+          <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38BDF8" />
+                <stop offset="50%" stop-color="#6366F1" />
+                <stop offset="100%" stop-color="#A855F7" />
+              </linearGradient>
+            </defs>
+            <rect x="2" y="2" width="32" height="32" rx="10" fill="url(#logoGrad)" />
+            <path d="M10 24L15 13L20 20L26 10" stroke="#FFFFFF" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="26" cy="10" r="2.5" fill="#FFFFFF" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">EMI<span class="gradient-text">NOVA</span></span>
+          <span class="brand-badge">PRO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-links" id="navLinks">
+        <a href="#calculator" class="nav-link active">Calculator</a>
+        <a href="#analytics" class="nav-link">Analytics</a>
+        <a href="#prepayment" class="nav-link">Prepayment</a>
+        <a href="#repayment-journey" class="nav-link">Amortization</a>
+        <a href="#insights" class="nav-link">Insights</a>
+        <a href="#glossary" class="nav-link">Glossary</a>
+      </nav>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="#calculator" class="btn btn-sm btn-primary nav-cta">Calculate Now</a>
+
+        <!-- Mobile Menu Hamburger -->
+        <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <nav class="mobile-nav-links">
+        <a href="#calculator" class="mobile-link">Calculator</a>
+        <a href="#analytics" class="mobile-link">Analytics</a>
+        <a href="#prepayment" class="mobile-link">Prepayment</a>
+        <a href="#repayment-journey" class="mobile-link">Amortization</a>
+        <a href="#insights" class="mobile-link">Smart Insights</a>
+        <a href="#glossary" class="mobile-link">Glossary & FAQ</a>
+      </nav>
+      <div class="mobile-drawer-footer">
+        <a href="#calculator" class="btn btn-primary w-full">Launch Calculator</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <div class="hero-pill-badge">
+          <span class="pulse-indicator"></span>
+          <span>Next-Gen Financial Intelligence</span>
+          <span class="pill-separator">•</span>
+          <span class="pill-highlight">Zero Latency</span>
+        </div>
+
+        <h1 class="hero-title">
+          Your Loan. Your Numbers. <br />
+          <span class="gradient-text">Your Control.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Calculate your EMI instantly, understand your repayment journey, and make smarter borrowing decisions with real-time financial modeling and intelligent amortization analytics.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#calculator" class="btn btn-primary btn-lg" id="heroCalculateBtn">
+            <span>Calculate My EMI</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#repayment-journey" class="btn btn-secondary btn-lg" id="heroExploreBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            <span>Explore Repayment</span>
+          </a>
+        </div>
+
+        <!-- Trust Badges & Metrics -->
+        <div class="hero-trust-row">
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <span>100% Client-Side Privacy</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <span>Standard Reducing Balance</span>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+            </div>
+            <span>Export CSV & PDF</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Dashboard Floating Card Preview -->
+      <div class="hero-preview-wrapper" aria-hidden="true">
+        <div class="glass-dashboard-card hero-preview-card">
+          <div class="dashboard-header">
+            <div class="dash-user">
+              <div class="avatar-ring">₹</div>
+              <div>
+                <div class="dash-title">Simulated Home Loan</div>
+                <div class="dash-subtitle">Standard 20-Year Amortization</div>
+              </div>
+            </div>
+            <div class="status-chip success">Live Reconciled</div>
+          </div>
+
+          <div class="hero-preview-metric">
+            <span class="preview-metric-label">Estimated Monthly EMI</span>
+            <div class="preview-metric-value" id="heroPreviewEmi">₹21,695<span class="per-month">/mo</span></div>
+            <div class="preview-metric-sub">Principal ₹25,00,000 @ 8.5% p.a.</div>
+          </div>
+
+          <!-- Mini visual bar -->
+          <div class="mini-bar-wrapper">
+            <div class="mini-bar-labels">
+              <span>Principal: 46.2%</span>
+              <span>Interest: 53.8%</span>
+            </div>
+            <div class="mini-stacked-bar">
+              <div class="mini-bar-segment principal" style="width: 46.2%"></div>
+              <div class="mini-bar-segment interest" style="width: 53.8%"></div>
+            </div>
+          </div>
+
+          <div class="hero-preview-badges">
+            <div class="preview-stat-card">
+              <div class="preview-stat-lbl">Total Interest</div>
+              <div class="preview-stat-val">₹27.06 L</div>
+            </div>
+            <div class="preview-stat-card highlight">
+              <div class="preview-stat-lbl">Prepay Savings</div>
+              <div class="preview-stat-val">Up to ₹8.4 L</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating ambient badges around preview -->
+        <div class="floating-badge badge-top-right">
+          <div class="badge-icon green">✓</div>
+          <div>
+            <div class="badge-title">₹4,200/mo Extra</div>
+            <div class="badge-sub">Saves 4.8 Years</div>
+          </div>
+        </div>
+
+        <div class="floating-badge badge-bottom-left">
+          <div class="badge-icon purple">⚡</div>
+          <div>
+            <div class="badge-title">Zero Zero Cost Loans</div>
+            <div class="badge-sub">0% APR Supported</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive EMI Calculator Section -->
+  <section class="calculator-section section-padding" id="calculator">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Interactive Calculator</div>
+        <h2 class="section-title">Configure Your Loan Parameters</h2>
+        <p class="section-subtitle">
+          Customize your principal, interest rate, and tenure with synchronized sliders. Instant recalculation with reducing balance precision.
+        </p>
+
+        <!-- Loan Presets Bar -->
+        <div class="presets-container" role="group" aria-label="Loan Preset Categories">
+          <span class="presets-label">Popular Presets:</span>
+          <div class="preset-chips-scroll">
+            <button type="button" class="preset-btn active" data-preset="home" id="presetHome">
+              <span class="preset-icon">🏠</span>
+              <span>Home Loan</span>
+              <span class="preset-badge">₹45L • 8.4% • 20Y</span>
+            </button>
+            <button type="button" class="preset-btn" data-preset="personal" id="presetPersonal">
+              <span class="preset-icon">💼</span>
+              <span>Personal Loan</span>
+              <span class="preset-badge">₹5L • 11.5% • 5Y</span>
+            </button>
+            <button type="button" class="preset-btn" data-preset="car" id="presetCar">
+              <span class="preset-icon">🚗</span>
+              <span>Car Loan</span>
+              <span class="preset-badge">₹12L • 9.0% • 5Y</span>
+            </button>
+            <button type="button" class="preset-btn" data-preset="education" id="presetEducation">
+              <span class="preset-icon">🎓</span>
+              <span>Education Loan</span>
+              <span class="preset-badge">₹20L • 9.5% • 8Y</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Calculator Grid -->
+      <div class="calculator-grid">
+        <!-- LEFT PANEL: Loan Configuration -->
+        <div class="calc-panel config-panel glass-card">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Loan Parameters</h3>
+              <p class="panel-desc">Adjust sliders or type directly into input fields</p>
+            </div>
+            <button type="button" class="reset-link-btn" id="btnReset" title="Reset to standard defaults">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              <span>Reset</span>
+            </button>
+          </div>
+
+          <form id="loanForm" class="calc-form" onsubmit="event.preventDefault();">
+            <!-- 1. Loan Amount Input -->
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="loanAmountInput" class="input-label">
+                  <span>Loan Principal Amount</span>
+                  <span class="info-tooltip" tabindex="0" data-tooltip="Total borrowed amount before interest is computed">ℹ</span>
+                </label>
+                <div class="currency-display-tag" id="amountInWords">₹45,00,000 (₹45 Lakhs)</div>
+              </div>
+
+              <div class="custom-input-box" id="amountBox">
+                <span class="input-affix">₹</span>
+                <input 
+                  type="text" 
+                  id="loanAmountInput" 
+                  class="styled-input" 
+                  value="45,00,000" 
+                  inputmode="numeric"
+                  aria-label="Loan Principal Amount in Rupees"
+                  autocomplete="off"
+                />
+              </div>
+
+              <!-- Amount Slider -->
+              <div class="slider-wrapper">
+                <input 
+                  type="range" 
+                  id="loanAmountSlider" 
+                  class="custom-slider" 
+                  min="1000" 
+                  max="50000000" 
+                  step="10000" 
+                  value="4500000"
+                  aria-label="Loan Amount Slider"
+                />
+                <div class="slider-scale">
+                  <span>₹1,000</span>
+                  <span>₹1 Cr</span>
+                  <span>₹2.5 Cr</span>
+                  <span>₹5 Cr</span>
+                </div>
+              </div>
+
+              <!-- Quick amount chips -->
+              <div class="quick-add-chips">
+                <button type="button" class="quick-chip" data-add-amount="100000">+₹1 Lakh</button>
+                <button type="button" class="quick-chip" data-add-amount="500000">+₹5 Lakh</button>
+                <button type="button" class="quick-chip" data-add-amount="1000000">+₹10 Lakh</button>
+                <button type="button" class="quick-chip" data-set-amount="2500000">₹25L</button>
+                <button type="button" class="quick-chip" data-set-amount="5000000">₹50L</button>
+                <button type="button" class="quick-chip" data-set-amount="10000000">₹1 Cr</button>
+              </div>
+              <div class="field-error" id="amountError" aria-live="polite"></div>
+            </div>
+
+            <!-- 2. Annual Interest Rate Input -->
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="interestRateInput" class="input-label">
+                  <span>Annual Interest Rate</span>
+                  <span class="info-tooltip" tabindex="0" data-tooltip="Annual reducing rate charged by the bank or lender">ℹ</span>
+                </label>
+                <div class="rate-status-tag" id="rateStatusTag">Competitive Home Rate</div>
+              </div>
+
+              <div class="custom-input-box" id="rateBox">
+                <input 
+                  type="number" 
+                  id="interestRateInput" 
+                  class="styled-input" 
+                  value="8.4" 
+                  step="0.05" 
+                  min="0" 
+                  max="30"
+                  aria-label="Annual Interest Rate Percentage"
+                />
+                <span class="input-affix suffix">% p.a.</span>
+              </div>
+
+              <!-- Rate Slider -->
+              <div class="slider-wrapper">
+                <input 
+                  type="range" 
+                  id="interestRateSlider" 
+                  class="custom-slider" 
+                  min="0" 
+                  max="30" 
+                  step="0.05" 
+                  value="8.4"
+                  aria-label="Interest Rate Slider"
+                />
+                <div class="slider-scale">
+                  <span>0% (No Cost)</span>
+                  <span>8.5%</span>
+                  <span>15%</span>
+                  <span>30%</span>
+                </div>
+              </div>
+
+              <!-- Quick rate chips -->
+              <div class="quick-add-chips">
+                <button type="button" class="quick-chip" data-set-rate="0">0% (Zero-Cost)</button>
+                <button type="button" class="quick-chip" data-set-rate="7.5">7.5%</button>
+                <button type="button" class="quick-chip" data-set-rate="8.4">8.4%</button>
+                <button type="button" class="quick-chip" data-set-rate="9.5">9.5%</button>
+                <button type="button" class="quick-chip" data-set-rate="11.5">11.5%</button>
+                <button type="button" class="quick-chip" data-set-rate="14.0">14.0%</button>
+              </div>
+              <div class="field-error" id="rateError" aria-live="polite"></div>
+            </div>
+
+            <!-- 3. Loan Tenure Input -->
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="tenureInput" class="input-label">
+                  <span>Loan Tenure</span>
+                  <span class="info-tooltip" tabindex="0" data-tooltip="Total repayment duration in years or months">ℹ</span>
+                </label>
+                
+                <!-- Tenure Unit Toggle Switch -->
+                <div class="tenure-unit-toggle" role="group" aria-label="Tenure Unit Selector">
+                  <button type="button" class="unit-toggle-btn active" id="unitYearsBtn" data-unit="years">Years</button>
+                  <button type="button" class="unit-toggle-btn" id="unitMonthsBtn" data-unit="months">Months</button>
+                </div>
+              </div>
+
+              <div class="custom-input-box" id="tenureBox">
+                <input 
+                  type="number" 
+                  id="tenureInput" 
+                  class="styled-input" 
+                  value="20" 
+                  min="1" 
+                  max="30" 
+                  step="1"
+                  aria-label="Loan Tenure"
+                />
+                <span class="input-affix suffix" id="tenureUnitLabel">Years</span>
+              </div>
+
+              <!-- Tenure Slider -->
+              <div class="slider-wrapper">
+                <input 
+                  type="range" 
+                  id="tenureSlider" 
+                  class="custom-slider" 
+                  min="1" 
+                  max="30" 
+                  step="1" 
+                  value="20"
+                  aria-label="Loan Tenure Slider"
+                />
+                <div class="slider-scale" id="tenureSliderScale">
+                  <span>1 Year</span>
+                  <span>10 Years</span>
+                  <span>20 Years</span>
+                  <span>30 Years</span>
+                </div>
+              </div>
+
+              <!-- Quick tenure chips -->
+              <div class="quick-add-chips">
+                <button type="button" class="quick-chip" data-set-tenure-yr="3">3 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="5">5 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="10">10 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="15">15 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="20">20 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="25">25 Yrs</button>
+                <button type="button" class="quick-chip" data-set-tenure-yr="30">30 Yrs</button>
+              </div>
+              <div class="field-error" id="tenureError" aria-live="polite"></div>
+            </div>
+
+            <!-- Form Action Buttons -->
+            <div class="form-actions-row">
+              <button type="button" class="btn btn-primary btn-block" id="btnCalculate">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                  <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1Z"/>
+                  <path d="M16 8h-8"/>
+                  <path d="M16 12h-8"/>
+                  <path d="M16 16h-5"/>
+                </svg>
+                <span>Calculate & Update Results</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- RIGHT PANEL: Live Results & Visual Analytics -->
+        <div class="calc-panel results-panel glass-card" id="analytics">
+          <div class="panel-header">
+            <div>
+              <h3 class="panel-title">Repayment Summary</h3>
+              <p class="panel-desc">Accurate Reducing Balance Calculation</p>
+            </div>
+            <div class="panel-tag-live">
+              <span class="pulse-dot"></span>
+              <span>Live Synchronized</span>
+            </div>
+          </div>
+
+          <!-- Hero Highlight Card: Monthly EMI -->
+          <div class="hero-emi-card">
+            <div class="emi-card-header">
+              <span class="emi-card-title">YOUR MONTHLY EMI</span>
+              <span class="emi-card-tenure" id="emiCardTenureText">for 240 months</span>
+            </div>
+            <div class="emi-number-row">
+              <span class="emi-currency">₹</span>
+              <span class="emi-large-amount" id="resultMonthlyEmi">38,767</span>
+              <span class="emi-decimals" id="resultEmiDecimals">.54</span>
+              <span class="emi-freq">/ month</span>
+            </div>
+            <div class="emi-card-sub" id="resultDailyEquiv">
+              Equates to approximately ₹1,292 per day
+            </div>
+          </div>
+
+          <!-- Key Financial Metric Cards (4-Grid) -->
+          <div class="metrics-grid">
+            <!-- Principal Card -->
+            <div class="metric-card">
+              <div class="metric-icon-box principal-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="20" height="12" rx="2"></rect>
+                  <circle cx="12" cy="12" r="2"></circle>
+                  <path d="M6 12h.01M18 12h.01"></path>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Loan Principal</span>
+                <span class="metric-value" id="resultPrincipalAmount">₹45,00,000</span>
+                <span class="metric-sub" id="resultPrincipalPct">48.2% of total</span>
+              </div>
+            </div>
+
+            <!-- Interest Card -->
+            <div class="metric-card">
+              <div class="metric-icon-box interest-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="1" x2="12" y2="23"></line>
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Total Interest</span>
+                <span class="metric-value" id="resultTotalInterest">₹48,04,210</span>
+                <span class="metric-sub" id="resultInterestPct">51.8% of total</span>
+              </div>
+            </div>
+
+            <!-- Total Repayment Card -->
+            <div class="metric-card">
+              <div class="metric-icon-box total-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Total Repayment</span>
+                <span class="metric-value" id="resultTotalRepayment">₹93,04,210</span>
+                <span class="metric-sub" id="resultTenureCount">240 Payments</span>
+              </div>
+            </div>
+
+            <!-- Ratio Card -->
+            <div class="metric-card">
+              <div class="metric-icon-box ratio-tint">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 14 14"></polyline>
+                </svg>
+              </div>
+              <div class="metric-details">
+                <span class="metric-label">Interest / Principal</span>
+                <span class="metric-value" id="resultRatio">106.8%</span>
+                <span class="metric-sub" id="resultRatioInsight">Moderate Ratio</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repayment Breakdown Chart Container -->
+          <div class="chart-container-box">
+            <div class="chart-header-row">
+              <span class="chart-title">Principal vs Interest Breakdown</span>
+              <span class="chart-badge">Proportional Ratio</span>
+            </div>
+
+            <div class="chart-flex-layout">
+              <!-- Doughnut Canvas -->
+              <div class="doughnut-canvas-wrapper">
+                <canvas id="emiDoughnutChart" width="220" height="220"></canvas>
+                <div class="chart-center-label">
+                  <span class="center-sub">Total</span>
+                  <span class="center-main" id="chartCenterAmount">₹93.0L</span>
+                </div>
+              </div>
+
+              <!-- Doughnut Custom Legend & Stacked Bar -->
+              <div class="chart-legend-stack">
+                <div class="legend-row">
+                  <div class="legend-bullet principal-bg"></div>
+                  <div class="legend-text">
+                    <span class="legend-name">Principal Amount</span>
+                    <span class="legend-val" id="legendPrincipalVal">₹45,00,000 (48.4%)</span>
+                  </div>
+                </div>
+
+                <div class="legend-row">
+                  <div class="legend-bullet interest-bg"></div>
+                  <div class="legend-text">
+                    <span class="legend-name">Total Interest Payable</span>
+                    <span class="legend-val" id="legendInterestVal">₹48,04,210 (51.6%)</span>
+                  </div>
+                </div>
+
+                <!-- Proportional Stacked Bar -->
+                <div class="proportional-bar-wrapper">
+                  <div class="proportional-bar">
+                    <div class="bar-fill principal-bar" id="barFillPrincipal" style="width: 48.4%;"></div>
+                    <div class="bar-fill interest-bar" id="barFillInterest" style="width: 51.6%;"></div>
+                  </div>
+                  <div class="bar-legend-foot">
+                    <span id="barPrincipalPctText">Principal: 48.4%</span>
+                    <span id="barInterestPctText">Interest: 51.6%</span>
+                  </div>
+                </div>
+
+                <!-- Summary Insight Note -->
+                <div class="insight-callout-pill" id="monthlyInsightCallout">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="callout-icon">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  <span id="monthlyInsightText">
+                    Your monthly EMI is <strong>₹38,768</strong> for <strong>240 months</strong> (20 years).
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions Bar (Share / Copy / Export) -->
+          <div class="results-actions-bar">
+            <button type="button" class="btn btn-outline btn-sm" id="btnCopySummary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Summary</span>
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnShareSummary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              <span>Share</span>
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnPrintSummary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Print / PDF</span>
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnDownloadCsv">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: What If I Pay Extra? (Prepayment Simulator) -->
+  <section class="prepayment-section section-padding" id="prepayment">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag highlight-tag">Optimization Accelerator</div>
+        <h2 class="section-title">What If I Pay Extra?</h2>
+        <p class="section-subtitle">
+          See how adding an extra amount towards your monthly principal payment dramatically shortens your tenure and saves lakhs in interest.
+        </p>
+      </div>
+
+      <div class="prepayment-card glass-card">
+        <div class="prepayment-grid">
+          <!-- Left: Extra Payment Controls -->
+          <div class="prepay-controls">
+            <h3 class="card-inner-title">Simulate Monthly Prepayment</h3>
+            <p class="card-inner-sub">Add an optional recurring amount paid on top of your standard EMI.</p>
+
+            <div class="input-group">
+              <div class="input-label-row">
+                <label for="extraPaymentInput" class="input-label">
+                  <span>Additional Monthly Principal</span>
+                  <span class="info-tooltip" tabindex="0" data-tooltip="This amount is deducted directly from your outstanding principal every month">ℹ</span>
+                </label>
+                <span class="currency-display-tag highlight-color" id="extraAmountTag">₹5,000 / month</span>
+              </div>
+
+              <div class="custom-input-box" id="extraBox">
+                <span class="input-affix">₹</span>
+                <input 
+                  type="text" 
+                  id="extraPaymentInput" 
+                  class="styled-input" 
+                  value="5,000" 
+                  inputmode="numeric"
+                  aria-label="Additional Monthly Principal Payment"
+                />
+              </div>
+
+              <div class="slider-wrapper">
+                <input 
+                  type="range" 
+                  id="extraPaymentSlider" 
+                  class="custom-slider highlight-slider" 
+                  min="0" 
+                  max="50000" 
+                  step="500" 
+                  value="5000"
+                  aria-label="Extra Monthly Payment Slider"
+                />
+                <div class="slider-scale">
+                  <span>₹0</span>
+                  <span>₹15,000</span>
+                  <span>₹30,000</span>
+                  <span>₹50,000</span>
+                </div>
+              </div>
+
+              <div class="quick-add-chips">
+                <button type="button" class="quick-chip" data-set-extra="0">₹0 (Standard)</button>
+                <button type="button" class="quick-chip" data-set-extra="2000">+₹2,000</button>
+                <button type="button" class="quick-chip" data-set-extra="5000">+₹5,000</button>
+                <button type="button" class="quick-chip" data-set-extra="10000">+₹10,000</button>
+                <button type="button" class="quick-chip" data-set-extra="20000">+₹20,000</button>
+              </div>
+            </div>
+
+            <div class="prepayment-disclaimer-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="disclaimer-icon">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <p>
+                Calculations assume immediate principal reduction. Actual lender prepayment terms, lock-in periods, or processing rules may vary.
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Prepayment Results Comparison Cards -->
+          <div class="prepay-results">
+            <div class="savings-spotlight-card">
+              <div class="spotlight-badge">POTENTIAL INTEREST SAVED</div>
+              <div class="spotlight-amount" id="prepaySavingsAmount">₹11,42,850</div>
+              <div class="spotlight-sub" id="prepaySavingsSub">You save 23.8% of your overall interest!</div>
+            </div>
+
+            <div class="prepay-metrics-row">
+              <div class="prepay-mini-card">
+                <span class="prepay-mini-label">Revised Payoff Time</span>
+                <span class="prepay-mini-val" id="prepayRevisedTenure">15 Yrs 4 Mos</span>
+                <span class="prepay-mini-comp" id="prepayTenureSaved">Save 4 Yrs 8 Mos</span>
+              </div>
+
+              <div class="prepay-mini-card">
+                <span class="prepay-mini-label">Total Revised Interest</span>
+                <span class="prepay-mini-val" id="prepayRevisedInterest">₹36,61,360</span>
+                <span class="prepay-mini-comp" id="prepayOriginalInterest">vs ₹48,04,210 original</span>
+              </div>
+            </div>
+
+            <!-- Visual Comparison Bars -->
+            <div class="timeline-comparison-block">
+              <div class="comparison-bar-item">
+                <div class="comp-label-row">
+                  <span>Standard Loan (Original)</span>
+                  <span id="compOrigMonths">240 Months</span>
+                </div>
+                <div class="comp-track">
+                  <div class="comp-fill orig-fill" style="width: 100%;"></div>
+                </div>
+              </div>
+
+              <div class="comparison-bar-item">
+                <div class="comp-label-row">
+                  <span class="text-cyan">With Extra Prepayment</span>
+                  <span class="text-cyan" id="compRevisedMonths">184 Months (Saved 56 Mos)</span>
+                </div>
+                <div class="comp-track">
+                  <div class="comp-fill rev-fill" id="compRevFill" style="width: 76.7%;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Smart Insights Engine -->
+  <section class="insights-section section-padding" id="insights">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">AI Financial Analytics</div>
+        <h2 class="section-title">Smart Borrowing Insights</h2>
+        <p class="section-subtitle">
+          In-depth financial analysis of your loan structure, tenure tradeoffs, and sensitivity to interest rate fluctuations.
+        </p>
+      </div>
+
+      <div class="insights-cards-grid">
+        <!-- 1. Interest Burden Card -->
+        <div class="insight-card glass-card">
+          <div class="insight-card-top">
+            <div class="insight-icon-ring purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+              </svg>
+            </div>
+            <span class="insight-badge" id="insightBurdenBadge">Moderate Burden</span>
+          </div>
+          <h3 class="insight-card-title">Interest-to-Principal Ratio</h3>
+          <p class="insight-card-desc" id="insightBurdenDesc">
+            For every ₹100 borrowed, you are paying <strong>₹107</strong> in interest charges over the full term.
+          </p>
+          <div class="insight-data-pill" id="insightBurdenPill">
+            Interest is 51.6% of your total loan outlay
+          </div>
+        </div>
+
+        <!-- 2. Tenure Comparison Matrix -->
+        <div class="insight-card glass-card">
+          <div class="insight-card-top">
+            <div class="insight-icon-ring blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <span class="insight-badge info">Tenure Optimization</span>
+          </div>
+          <h3 class="insight-card-title">Tenure Tradeoff Matrix</h3>
+          <p class="insight-card-desc">
+            See how adjusting your loan duration changes your EMI and total interest burden:
+          </p>
+
+          <div class="tenure-matrix-list" id="tenureMatrixList">
+            <!-- Dynamically populated by JavaScript -->
+          </div>
+        </div>
+
+        <!-- 3. Rate Sensitivity Analysis -->
+        <div class="insight-card glass-card">
+          <div class="insight-card-top">
+            <div class="insight-icon-ring cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <span class="insight-badge cyan">Rate Sensitivity</span>
+          </div>
+          <h3 class="insight-card-title">Interest Rate Impact</h3>
+          <p class="insight-card-desc" id="rateSensitivityDesc">
+            What happens if your floating interest rate moves up or down?
+          </p>
+          <div class="rate-sensitivity-box" id="rateSensitivityGrid">
+            <!-- Populated via script.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Repayment Journey (Amortization Schedule) -->
+  <section class="amortization-section section-padding" id="repayment-journey">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Amortization Ledger</div>
+        <h2 class="section-title">Your Repayment Journey</h2>
+        <p class="section-subtitle">
+          Track how your principal steadily declines and interest charges diminish year over year. Expand any year to view monthly schedules.
+        </p>
+      </div>
+
+      <div class="amortization-card glass-card">
+        <!-- Balance Trajectory Chart -->
+        <div class="amortization-chart-block">
+          <div class="chart-header-row">
+            <div>
+              <h3 class="chart-title">Loan Balance Payoff Curve</h3>
+              <p class="chart-subtitle">Decreasing Principal Balance vs Cumulative Interest</p>
+            </div>
+            <div class="chart-legend-simple">
+              <span class="legend-dot cyan"></span> Remaining Balance
+              <span class="legend-dot purple"></span> Cumulative Interest
+            </div>
+          </div>
+          <div class="amort-canvas-container">
+            <canvas id="amortizationTrendChart" height="90"></canvas>
+          </div>
+        </div>
+
+        <!-- Table Toolbar -->
+        <div class="table-toolbar">
+          <div class="view-mode-toggle" role="group" aria-label="Schedule View Mode">
+            <button type="button" class="view-btn active" id="viewYearlyBtn">Yearly Schedule</button>
+            <button type="button" class="view-btn" id="viewMonthlyBtn">Monthly Schedule</button>
+          </div>
+
+          <div class="table-actions">
+            <!-- Search / Filter -->
+            <div class="table-search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="amortSearchInput" placeholder="Filter year (e.g. 2026, Year 5)..." aria-label="Filter Amortization Schedule">
+            </div>
+
+            <button type="button" class="btn btn-outline btn-sm" id="btnDownloadCsv2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download CSV</span>
+            </button>
+            <button type="button" class="btn btn-outline btn-sm" id="btnPrintSummary2">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Print Table</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Amortization Table -->
+        <div class="table-responsive" id="amortizationTableWrapper">
+          <table class="amort-table" id="amortTable">
+            <thead>
+              <tr>
+                <th scope="col" class="th-period">Period</th>
+                <th scope="col" class="text-right">Opening Balance</th>
+                <th scope="col" class="text-right">Principal Paid</th>
+                <th scope="col" class="text-right">Interest Paid</th>
+                <th scope="col" class="text-right">Total Payment</th>
+                <th scope="col" class="text-right">Closing Balance</th>
+                <th scope="col" class="th-progress">Loan Paid</th>
+              </tr>
+            </thead>
+            <tbody id="amortTableBody">
+              <!-- Dynamically rendered via script.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer-info" id="amortTableFooterInfo">
+          Showing complete 20-year schedule. Click on any year row to inspect individual 12 monthly installments.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: Financial Glossary & Education -->
+  <section class="glossary-section section-padding" id="glossary">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Knowledge Hub</div>
+        <h2 class="section-title">Understanding Your Loan Fundamentals</h2>
+        <p class="section-subtitle">
+          Demystifying essential financial concepts to help you borrow with confidence.
+        </p>
+      </div>
+
+      <div class="faq-accordion-grid">
+        <details class="faq-item" open>
+          <summary class="faq-question">
+            <span>What is the Reducing Balance Method and how does it work?</span>
+            <span class="faq-icon"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>
+              In a reducing-balance loan, interest is calculated solely on the outstanding principal at the beginning of each payment cycle, rather than on the original loan amount. As you make each monthly payment, a portion repays the accrued interest and the remainder decreases the principal balance. In subsequent months, you pay interest on this reduced balance, which means the interest component steadily shrinks while the principal repayment accelerates.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>Why is interest front-loaded in long-term loans like Home Loans?</span>
+            <span class="faq-icon"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>
+              During the initial years of a loan, your outstanding loan principal is at its maximum. Because interest is charged on this large balance, a major share of your monthly EMI goes towards interest payments and only a minor portion reduces the principal. As the principal balance lowers over time, the interest fraction drops and principal reduction speeds up exponentially.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>How does making partial prepayments save massive interest?</span>
+            <span class="faq-icon"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>
+              Every extra rupee paid goes 100% towards the loan principal. By diminishing the principal earlier than scheduled, you eliminate all future compounding interest that would have otherwise accumulated on that amount across the remaining years. Prepaying early in the tenure yields the highest compounding savings.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>What is the mathematical EMI formula used by banks?</span>
+            <span class="faq-icon"></span>
+          </summary>
+          <div class="faq-answer">
+            <p>
+              The Equated Monthly Installment is calculated as:
+              <br><br>
+              <code>EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)</code>
+              <br><br>
+              Where <strong>P</strong> = Principal Loan Amount, <strong>r</strong> = Monthly Interest Rate (Annual Rate ÷ 12 ÷ 100), and <strong>n</strong> = Total Number of Monthly Installments.
+            </p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#hero" class="brand-logo">
+            <div class="logo-symbol small">
+              <svg viewBox="0 0 36 36" fill="none">
+                <rect x="2" y="2" width="32" height="32" rx="10" fill="url(#logoGrad)" />
+                <path d="M10 24L15 13L20 20L26 10" stroke="#FFFFFF" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="26" cy="10" r="2.5" fill="#FFFFFF" />
+              </svg>
+            </div>
+            <span class="brand-name">EMI<span class="gradient-text">NOVA</span></span>
+          </a>
+          <p class="footer-tagline">“Plan Smart. Borrow Better.”</p>
+          <p class="footer-desc">
+            A premium financial analytics application engineered for transparent borrowing, amortization modeling, and wealth planning.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div class="footer-col">
+            <h4 class="footer-col-title">Product</h4>
+            <ul class="footer-links">
+              <li><a href="#calculator">EMI Calculator</a></li>
+              <li><a href="#analytics">Repayment Analytics</a></li>
+              <li><a href="#prepayment">Prepayment Simulator</a></li>
+              <li><a href="#repayment-journey">Amortization Table</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Calculators</h4>
+            <ul class="footer-links">
+              <li><a href="#calculator" data-preset="home" class="footer-preset-link">Home Loan EMI</a></li>
+              <li><a href="#calculator" data-preset="personal" class="footer-preset-link">Personal Loan EMI</a></li>
+              <li><a href="#calculator" data-preset="car" class="footer-preset-link">Car Loan EMI</a></li>
+              <li><a href="#calculator" data-preset="education" class="footer-preset-link">Education Loan EMI</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4 class="footer-col-title">Resources</h4>
+            <ul class="footer-links">
+              <li><a href="#glossary">Financial Glossary</a></li>
+              <li><a href="#repayment-journey">CSV Export Guide</a></li>
+              <li><a href="#hero">Privacy & Security</a></li>
+              <li><a href="#hero">Terms of Service</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal & Financial Disclaimer -->
+      <div class="footer-disclaimer-card">
+        <div class="disclaimer-title-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="disclaimer-shield">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span class="disclaimer-heading">Important Financial Disclaimer</span>
+        </div>
+        <p class="disclaimer-text">
+          This calculator provides estimates for informational and educational purposes only based on standard mathematical reducing-balance amortization formulas. Actual EMI, interest rates, processing fees, compounding frequency, and prepayment terms vary according to individual bank and lender policies, RBI regulations, and credit profiles. Not financial or investment advice.
+        </p>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">
+          © 2026 EMI NOVA Inc. All rights reserved. Built with precision for smart borrowers.
+        </div>
+        <div class="footer-badges">
+          <span class="badge-tech">HTML5</span>
+          <span class="badge-tech">CSS3</span>
+          <span class="badge-tech">Vanilla JS</span>
+          <span class="badge-tech">Chart.js</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="assertive" aria-atomic="true"></div>
+
+  <!-- Hidden Print Sheet Header (rendered in print mode) -->
+  <div class="print-only print-header">
+    <div class="print-brand">
+      <h2>EMI NOVA — Smart Loan Calculator Summary Report</h2>
+      <p>Report Generated on: <span id="printDateSpan"></span></p>
+    </div>
+    <div class="print-summary-box" id="printSummaryBox"></div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
